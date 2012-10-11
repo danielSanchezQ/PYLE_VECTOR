@@ -1,5 +1,5 @@
 import pymel.core as pm
-import OpenMaya as om
+import maya.OpenMaya as om
 
 
 
@@ -35,7 +35,8 @@ class Pyletool:
             size = vC - vA
             halfsize = size * .5
             halfpos = vA + halfsize
-            returnpos = (vB + halfpos) * 2
+            distance_vB_halpos = vB - halfpos
+            returnpos = vB + distance_vB_halpos
             return returnpos
             
     def doit(self):
@@ -52,7 +53,7 @@ class PyleUI:
             self.w = pm.window('pyleUI', q=True)
             pm.showWindow(self.w)
         else:
-            self.w = pm.window('pyleUI', t='Pyle_Vector', h=300,w=300)
+            self.w = pm.window('pyleUI', t='Pyle_Vector', h=50,w=300)
             pm.columnLayout(adjustableColumn=True)
             pm.text(label='SELECT 3 JOINTS PARENT->CHILDREN ORIENTATION',align='center',rs=True)
             self.button = pm.button(label='DoIt', command = 'pyletool.doit()')
@@ -60,8 +61,8 @@ class PyleUI:
     
     
 ###Copy for shelve button
-pyletool = Pyletool
-pyleui = PyleUI
+pyletool = Pyletool()
+pyleui = PyleUI()
 ###Copy for shelve button
     
     
